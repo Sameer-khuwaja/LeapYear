@@ -1,0 +1,31 @@
+<project name="LeapYear" default="run" basedir=".">
+  
+  <property name="src.dir" value="src" />
+  <property name="build.dir" value="build" />
+  <property name="dist.dir" value="dist" />
+  <property name="main.class" value="LeapYear.LeapYear" />
+  
+  <target name="clean">
+    <delete dir="${build.dir}" />
+    <delete dir="${dist.dir}" />
+  </target>
+  
+  <target name="compile" depends="clean">
+    <mkdir dir="${build.dir}" />
+    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" />
+  </target>
+  
+  <target name="jar" depends="compile">
+    <mkdir dir="${dist.dir}" />
+    <jar destfile="${dist.dir}/LeapYear.jar" basedir="${build.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="${main.class}" />
+      </manifest>
+    </jar>
+  </target>
+  
+  <target name="run" depends="jar">
+    <java jar="${dist.dir}/LeapYear.jar" fork="true" />
+  </target>
+  
+</project>
